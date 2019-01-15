@@ -40,10 +40,15 @@ public class MyBot extends TelegramLongPollingBot {
 
     public void showProperties(final Update update) {
         try {
-            System.out.println("id = " + update.getUpdateId() +
-                    ", message.text= " + update.getMessage().getText() +
-                    " ,sticker file id = " + update.getMessage().getSticker().getSetName()
-            );
+            if (update.hasMessage() && update.getMessage().hasText()) {
+                System.out.println("id = " + update.getUpdateId() +
+                        ", message.text= " + update.getMessage().getText()
+                );
+            }
+
+            if (update.hasMessage() && update.getMessage().getSticker() != null) {
+                System.out.println("Sticker file id = " + update.getMessage().getSticker().getFileId());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
