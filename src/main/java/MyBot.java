@@ -9,10 +9,12 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(final Update update) {
+        showProperties(update);
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
 
             String message_text = update.getMessage().getText();
+
             long chat_id = update.getMessage().getChatId();
 
             SendMessage message = new SendMessage() // Create a message object object
@@ -30,4 +32,9 @@ public class MyBot extends TelegramLongPollingBot {
         return "kimlyuk_bot";
     }
 
+    public void showProperties(final Update update) {
+        System.out.println("id = " + update.getUpdateId() +
+                ", message.text= " + update.getMessage().getText() +
+                " ,sticker file id = " + update.getMessage().getSticker().getFileId());
+    }
 }
