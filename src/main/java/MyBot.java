@@ -11,7 +11,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(final Update update) {
         showProperties(update);
-        
+
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
             String stickerId = "CAADBAADcwADFZIyDnZwXi6YL5ujAg";
@@ -39,9 +39,14 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     public void showProperties(final Update update) {
-        System.out.println("id = " + update.getUpdateId() +
-                ", message.text= " + update.getMessage().getText() +
-                " ,sticker file id = " + update.getMessage().getSticker().getSetName()
-        );
+        try {
+            System.out.println("id = " + update.getUpdateId() +
+                    ", message.text= " + update.getMessage().getText() +
+                    " ,sticker file id = " + update.getMessage().getSticker().getSetName()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
