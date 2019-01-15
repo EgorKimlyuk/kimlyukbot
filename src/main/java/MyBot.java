@@ -1,4 +1,5 @@
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendSticker;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -10,8 +11,10 @@ public class MyBot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(final Update update) {
         showProperties(update);
+        
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
+            String stickerId = "CAADBAADcwADFZIyDnZwXi6YL5ujAg";
 
             String message_text = update.getMessage().getText();
 
@@ -20,7 +23,10 @@ public class MyBot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage() // Create a message object object
                     .setChatId(chat_id)
                     .setText("Rodion da best man in da world");
+
+
             try {
+                sendSticker(new SendSticker().setChatId(chat_id).setSticker(stickerId));
                 execute(message); // Sending our message object to user
             } catch (TelegramApiException e) {
                 e.printStackTrace();
@@ -35,6 +41,7 @@ public class MyBot extends TelegramLongPollingBot {
     public void showProperties(final Update update) {
         System.out.println("id = " + update.getUpdateId() +
                 ", message.text= " + update.getMessage().getText() +
-                " ,sticker file id = " + update.getMessage().getSticker().getFileId());
+                " ,sticker file id = " + update.getMessage().getSticker().getSetName()
+        );
     }
 }
